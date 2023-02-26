@@ -25,16 +25,16 @@ export default function App() {
 
   //For the button
   const buttonPressHandler = (text) => {
-    setTasks((currentTasks) => [
-      ...currentTasks,
-      { text: enteredText, key: Math.random().toString() },
+    setTasks((currentTask) => [
+      ...currentTask,
+      { text: enteredText, id: Math.random().toString() },
     ]);
   };
 
-  //For the tasks
-  const pressHandler = (key) => {
-    setTasks((prevTodo) => {
-      return prevTodo.filter((todoItem) => todoItem.key !== key);
+  //For the pressable
+  const deleteTaskHandler = (id) => {
+    setTasks((currentTask) => {
+      return currentTask.filter((Task) => Task.id !== id);
     });
   };
 
@@ -48,7 +48,13 @@ export default function App() {
         <View style={styles.tasksContainer}>
           <FlatList
             data={tasks}
-            renderItem={({ item }) => <Tasks item={item} />}
+            renderItem={({ item }) => (
+              <Tasks
+                text={item.text}
+                id={item.id}
+                onDeleteItem={deleteTaskHandler}
+              />
+            )}
             // keyExtractor={(item) => item.id}
           />
         </View>

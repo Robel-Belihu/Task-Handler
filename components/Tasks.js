@@ -1,12 +1,15 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 
-export default function Tasks({ item, pressHandler }) {
+export default function Tasks(props) {
   return (
-    <TouchableOpacity>
+    <Pressable
+      style={styles.pressable}
+      onPress={props.onDeleteItem.bind(this, props.id)}
+    >
       <View style={styles.taskItem}>
-        <Text style={styles.taskItemText}>{item.text}</Text>
+        <Text style={styles.taskItemText}>{props.text}</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
