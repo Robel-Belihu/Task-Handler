@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 export default function Tasks(props) {
   return (
     <Pressable
-      style={styles.pressable}
+      style={({ pressed }) => pressed && styles.pressed}
       onPress={props.onDeleteItem.bind(this, props.id)}
     >
       <View style={styles.taskItem}>
@@ -15,19 +15,19 @@ export default function Tasks(props) {
 
 const styles = StyleSheet.create({
   taskItem: {
-    padding: 20,
     marginTop: 16,
-    borderColor: "#bbb",
-    borderStyle: "solid",
     borderRadius: 15,
-    borderBottomColor: "purple",
     flexDirection: "row",
     backgroundColor: "purple",
   },
   taskItemText: {
+    padding: 20,
     marginLeft: 10,
     color: "#fff",
     fontSize: 17,
     backgroundColor: "purple",
+  },
+  pressed: {
+    opacity: 0.5,
   },
 });

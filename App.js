@@ -17,6 +17,7 @@ const image = {
 export default function App() {
   const [enteredText, setEnteredText] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [visibleModal, setVisibleModal] = useState(false);
 
   //For the input field
   const inputHandler = (value) => {
@@ -37,14 +38,31 @@ export default function App() {
       return currentTask.filter((Task) => Task.id !== id);
     });
   };
+  //Show modal
+  const startTaskHandler = () => {
+    setVisibleModal(true);
+  };
+  //Cancel modal
+  const cancelModal = () => {
+    setVisibleModal(false);
+  };
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={styles.img}>
       <View style={styles.container}>
+        <Button
+          title="Add a task"
+          color={"purple"}
+          onPress={startTaskHandler}
+        />
         <TaskInput
+          visible={visibleModal}
+          cancelModal={cancelModal}
           inputHandler={inputHandler}
           buttonPressHandler={buttonPressHandler}
+          image={image}
         />
+
         <View style={styles.tasksContainer}>
           <FlatList
             data={tasks}
@@ -55,7 +73,6 @@ export default function App() {
                 onDeleteItem={deleteTaskHandler}
               />
             )}
-            // keyExtractor={(item) => item.id}
           />
         </View>
       </View>
